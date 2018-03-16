@@ -53,6 +53,16 @@ dev:
     width: 1010
     x: 2817
     y: 1645
+  gnome-terminal*:
+    height: 477
+    width: 1010
+    x: 1817
+    y: 1645
+  gnome-terminal**:
+    height: 477
+    width: 1010
+    x: 0
+    y: 1645
 ```
 
 ### todo
@@ -64,6 +74,7 @@ In order of importance:
 - [x] ~~Introduce capture command to dump details of focused window (x, y, w, h): `envi capture <float>`.~~
 - [ ] Use `wmctrl` to switch between workspaces if a space is defined as being on anything other than the current one.
 - [ ] More than one application with the same name. I might need to bootstrap the YAML loader.
+   - [x] Workaround: In the config, place asterisks after the application name. The YAML loader doesn't count these as duplicates and therefore preserves them in the data it returns.
 - [x] ~~Verbose output with `envi space {spacename} -v |--verbose`.~~
 - [x] Look into output of `wmctrl -l [-p -x]`. Might be able to remove xdotool dependency entirely if this gives me everything I need. [Example and explaination](https://stackoverflow.com/questions/2250757/is-there-a-linux-command-to-determine-the-window-ids-associated-with-a-given-pro)
 
