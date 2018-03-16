@@ -58,11 +58,6 @@ dev:
     width: 1010
     x: 1817
     y: 1645
-  gnome-terminal**:
-    height: 477
-    width: 1010
-    x: 0
-    y: 1645
 ```
 
 ### todo
