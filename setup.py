@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 from setuptools import setup
 from setuptools.command.install import install
 
@@ -12,6 +13,9 @@ AUTHOR = 'nvms'
 AUTHOR_EMAIL = 'jon@pye.rs'
 VERSION = '1.0.0'
 
+if (os.name == "posix") or (os.name == "nt"):
+    print("sorry, envi is not compatible with this OS")
+    sys.exit(1)
 
 config_path = os.path.join(os.path.expanduser('~'), '.config/envi/')
 
