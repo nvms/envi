@@ -57,7 +57,6 @@ class App(object):
             msg = """{} is missing a required config property.
 Required fields: {}""".format(self.name, self.required_fields)
             bail(msg, 1)
-            del self.required_fields
 
 
     def dump(self):
