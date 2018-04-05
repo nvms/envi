@@ -17,20 +17,20 @@ if (os.name == "posix") or (os.name == "nt"):
     print("sorry, envi is not compatible with this OS")
     sys.exit(1)
 
-config_path = os.path.join(os.path.expanduser('~'), '.config/envi/')
+CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.config/envi/')
 
 class EnviInstall(install):
     """ Custom setuptools install that ensures the config directory exists. """
     def run(self):
 
-        if not os.path.exists(config_path):
+        if not os.path.exists(CONFIG_PATH):
             try:
-                print('[envi] Creating config directory: {dir}'.format(dir=config_path))
-                os.makedirs(config_path)
-            except Exception as e:
+                print('[envi] Creating config directory: {dir}'.format(dir=CONFIG_PATH))
+                os.makedirs(CONFIG_PATH)
+            except Exception as exc:
                 print('[envi] ABORT! Failed to create config directory..')
                 print('[envi] Do you not have permission to ~/.config for some reason?')
-                print(e)
+                print(exc)
                 sys.exit(1)
 
         install.run(self)
@@ -47,11 +47,11 @@ class EnviInstall(install):
 [envi] Installed successfully.
 [envi] Config location: {cfg_loc}
 [envi] For usage information, vist: https://github.com/nvms/envi
-""".format(cfg_loc=os.path.join(config_path, "spaces.yml"))
+""".format(cfg_loc=os.path.join(CONFIG_PATH, "spaces.yml"))
 
         print(msg)
 
-options = dict (
+OPTIONS = dict(
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
@@ -62,7 +62,7 @@ options = dict (
     },
     packages=['envi'],
     data_files=[
-        (config_path, ['spaces.yml', 'getid.sh'])
+        (CONFIG_PATH, ['spaces.yml', 'getid.sh'])
     ],
     entry_points={
         'console_scripts': [
@@ -76,4 +76,4 @@ options = dict (
     ]
 )
 
-setup(**options)
+setup(**OPTIONS)
