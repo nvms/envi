@@ -66,7 +66,7 @@ class Space(object):
 
                     # Does this application have an argument?
                     if "[" in line and "]" in line:
-                        
+
                         # Get the arguments
                         args = line[line.find("[")+1:line.find("]")]
 
