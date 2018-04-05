@@ -17,7 +17,9 @@ config = None
 args = None
 
 
-def get_window_id(seconds: float):
+def get_window_id():
+    """this gets the window ID of whatever is currently focused.
+    see getid.sh"""
 
     wc = WindowController(capture=True)
     config = Config()
@@ -25,12 +27,16 @@ def get_window_id(seconds: float):
     return id
 
 
-def focus_window_by_id(id):
+def focus_window_by_id(wid):
+    """use wmctrl to focus a window using its window ID"""
+
     wc = WindowController(capture=True)
     config = Config()
-    wc.command.run("wmctrl -a {winid} -i".format(winid=id))
+    wc.command.run("wmctrl -a {winid} -i".format(winid=wid))
 
 def capture(seconds: float):
+    """helper function to capture the position and size information of
+    whichever window has focus at the time this is ran."""
 
     # Passing capture=True prevents WindowController from attempting to
     # begin its 'window flow', which attempts to spawn windows that belong
@@ -72,17 +78,19 @@ y:      {} [ -28 = {} ]
 
 
 def main():
+    """main program loop"""
 
     try:
-      config = Config()
-    except Exception as e:
-      bail('config error: {}'.format(e), 1)
+        config = Config()
+    except Exception as exc:
+        bail('config error: {}'.format(exc), 1)
 
     # Was -v passed to space?
     if hasattr(args, 'verbose'):
-      vb = getattr(args, 'verbose')
-      if vb is True:
-        config.verbose = True
+        verbose = getattr(args, 'verbose')
+
+        if verbose is True:
+            config.verbose = True
 
     # envi list [...]
     if hasattr(args, 'thing_to_list'):
@@ -102,7 +110,7 @@ def main():
         # Get the current window ID. Probably a terminal.
         # We want to check this against whatever the first application is.
         # Wait for this to change, then proceed..
-        config.last_window_id = get_window_id(seconds=0)
+        config.last_window_id = get_window_id()
         config.opened_windows.append(config.last_window_id)
         config.starting_window = config.last_window_id
 
